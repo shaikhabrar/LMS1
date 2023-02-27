@@ -104,7 +104,8 @@ else{
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT StudentID,StudName,BookName,CategoryName,AuthorName,ISBNNumber,BookPrice from tblrequestedbookdetails";
+<?php 
+$sql = "SELECT StudentID,StudName,BookName,CategoryName,AuthorName,ISBNNumber,BookPrice from tblrequestedbookdetails";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);

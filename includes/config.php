@@ -1,15 +1,33 @@
 <?php 
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
-define('DB_NAME','library');
+		if (function_exists('conectar')){
 
-try
-{
-$dbh = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER, DB_PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-}
-catch (PDOException $e)
-{
-exit("Error: " . $e->getMessage());
-}
+		} else {
+
+		function conectar(){
+		   
+				//$connection = mysqli_connect("localhost", 'root', '', 'cl_water_sys');	
+
+				$user = getenv('CLOUDSQL_USER');
+				$pass = getenv('CLOUDSQL_PASSWORD');
+				$inst = getenv('CLOUDSQL_DSN');
+				$db = getenv('CLOUDSQL_DB');
+				$connection = mysqli_connect(null, $user, $pass, $db, null, $inst);
+			/*	$now = new DateTime();
+				$mins = $now->getOffset() / 60;
+				$sgn = ($mins < 0 ? -1 : 1);
+				$mins = abs($mins);
+				$hrs = floor($mins / 60);
+				$mins -= $hrs * 60;
+				$offset = sprintf('%+d:%02d', $hrs*$sgn, $mins);
+				$connection->query("SET time_zone='$offset'");
+			    $connection->query("SET lc_time_names = 'es_ES'"); */
+				if (!$connection) {
+						echo "Error!".mysqli_connect_error();
+					}
+				
+				return $connection;
+		}
+		}
+
+		
 ?>
